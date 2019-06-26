@@ -1,3 +1,5 @@
+require 'pry'
+
 # get paid/receive payments
 # take a bath
 # call a friend
@@ -56,22 +58,36 @@ class Person
   end
 
   def take_bath
-    @hygiene=(@hygine+4)
+    self.hygiene=(@hygiene+=4)
     "♪ Rub-a-dub just relaxing in the tub ♫"
   end
 
   def work_out
-    temp_happiness = @happiness + 2
-    happiness=temp_happiness
-    @hygine -= 3
+    self.happiness=(@happiness+=2)
+    self.hygiene=(@hygiene-=3)
     "♪ another one bites the dust ♫"
   end
 
-  def call_friend
-
+  def call_friend(friend)
+    [self,friend].each do |chatty_peeps|
+      happiness=(chatty_peeps.happiness+=3)
+    end
+    return "Hi #{friend.name}! It's #{@name}. How are you?"
   end
 
-  def start_conversation
-
+  def start_conversation(hh_victim,topic)
+    if topic == "politics"
+      [self,hh_victim].each do |chatty_peeps|
+        happiness=(chatty_peeps.happiness-=2)
+      end
+      return "blah blah partisan blah lobbyist"
+    elsif topic == "weather"
+      [self,hh_victim].each do |chatty_peeps|
+        happiness=(chatty_peeps.happiness+=1)
+      end
+      return "blah blah sun blah rain"
+    else
+      return "blah blah blah blah blah"
+    end
   end
 end
